@@ -3,12 +3,12 @@
 
 void setOffsets(MPU6050 mpu){
   Serial.print("Setting Offsets...");
-  mpu.setXGyroOffset(14);
-  mpu.setYGyroOffset(97);
-  mpu.setZGyroOffset(12);
-  mpu.setXAccelOffset(-1289);
-  mpu.setYAccelOffset(-1358);
-  mpu.setZAccelOffset(1208);
+  mpu.setXGyroOffset(17);
+  mpu.setYGyroOffset(96);
+  mpu.setZGyroOffset(13);
+  mpu.setXAccelOffset(-1237);
+  mpu.setYAccelOffset(-1440);
+  mpu.setZAccelOffset(1209);
   Serial.println(" Done");
 }
 

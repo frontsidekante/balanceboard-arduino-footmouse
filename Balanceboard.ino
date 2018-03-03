@@ -6,20 +6,28 @@
 #include "I2Cdev.h"
 #include "MPU6050.h"
 #include "Mouse.h"
+#include "Wire.h"
 
-//libraries for BH1750 (light sensor)
-#include <Wire.h>
-#include <BH1750.h>
+//signal pins for TCRT5000
+const int irRight = 7; 
+const int irLeft = 8;
 
-//sensors
-BH1750 LuxR(0x5c);
-BH1750 LuxL(0x23);
+//control led pins for TCRT5000
+const int ledRight = 2;
+const int ledLeft = 12;
+
+//variables for TCRT5000
+int rightValue;
+int leftValue;
+int lastIrRightState = HIGH;
+int lastIrLeftState = HIGH;
+
 MPU6050 mpu;
 
+//variables for mpu
 int16_t RawAccX, RawAccY, RawAccZ, RawGyroX, RawGyroY, RawGyroZ;
 float usableGyroX, usableGyroY, usableGyroZ;
 float usableAccX, usableAccY, usableAccZ;
-
 int16_t offset;
 
 void setup() {
@@ -27,44 +35,87 @@ void setup() {
   //sets datarate in bits per second
   Serial.begin(9600);
 
-  //TODO: testen, ob notwendig
-  Wire.begin();
-
   //setting up mpu
-  mpu.initialize();
-  setOffsets(mpu);
+  //mpu.initialize();
+  //setOffsets(mpu);
+  
+  pinMode(ledRight,OUTPUT);
+  pinMode(ledLeft,OUTPUT);
+  
+  pinMode(irLeft, INPUT);
+  pinMode(irRight,INPUT);
 
-  //setting up light sensor
-  //Low Resolution Mode - (4 lx precision, 16ms measurement time)
-  LuxR.begin(BH1750::CONTINUOUS_LOW_RES_MODE);
-  LuxL.begin(BH1750::CONTINUOUS_LOW_RES_MODE);
+  //irRight works with internal pullup
+  digitalWrite(irRight,HIGH); 
+
+  
+  //Wire.begin(); -> right LED stays off otherwise...!???
+  
   Mouse.begin();
 }
 
 void loop() {
-
-  //get gyroscope data
-  getUsableGyroData();
-  //get lightsensor data
-  uint16_t rightLux = LuxR.readLightLevel();
-  uint16_t leftLux = LuxL.readLightLevel();
-  //move cursor
-  //Mouse.move(usableGyroY, usableGyroX);
-  //delay(16);
-
-  //leftlux
-  if(rightLux <= 3 && rightLux){
-    Serial.print("click");
-    Mouse.click();
-  }
   
-  Serial.print("RightLux: ");
-  Serial.print(rightLux);
-  Serial.print(" lx | ");
+  //get gyroscope data
+  //getUsableGyroData();
+  
+  //move cursor
+  //Mouse.move(-usableGyroX, usableGyroY);
+  //delay(16);
+  rightValue = digitalRead(irRight);
+  leftValue = digitalRead(irLeft);
 
-  Serial.print("LeftLux: ");
-  Serial.print(leftLux);
-  Serial.println(" lx");
-  delay(500);
+  ////BLOCK FOR LEFT FOOT
+  //feet are down, nothing happens
+  if(leftValue == LOW && lastIrLeftState == LOW){
+  }
+  //feet were down, are up now 
+  else if(leftValue == HIGH && lastIrLeftState == LOW){
+    Serial.println("IF 2 ");
+    Mouse.press();   
+  }
+  //feet were up, are down now 
+  else if(leftValue == LOW && lastIrLeftState == HIGH){
+    Serial.println("IF 3");
+    Mouse.release();
+  } 
+  //feet were up, are still up 
+  else if(leftValue == HIGH && lastIrLeftState == HIGH){
+    Serial.println("IF 4");   
+  }
+  lastIrLeftState = leftValue; 
+
+  ////BLOCK FOR RIGHT FOOT
+  //feet are down, nothing happens
+  if(rightValue == LOW && lastIrRightState == LOW){
+  }
+  //feet were down, are up now 
+  else if(rightValue == HIGH && lastIrRightState== LOW){
+    Serial.println("IF 2 ");
+    Mouse.press(MOUSE_RIGHT);   
+  }
+  //feet were up, are down now 
+  else if(rightValue == LOW && lastIrRightState == HIGH){
+    Serial.println("IF 3");
+    Mouse.release(MOUSE_RIGHT);
+  } 
+  //feet were up, are still up 
+  else if(rightValue == HIGH && lastIrRightState == HIGH){
+    Serial.println("IF 4");   
+  }
+  lastIrRightState = rightValue; 
+
+  //BLOCK FOR CONTROL LEDS
+  if(rightValue == LOW){
+    digitalWrite(ledRight,LOW);
+  }else if(rightValue == HIGH){
+    digitalWrite(ledRight,HIGH);  
+  }
+
+  if(leftValue == LOW){
+    digitalWrite(ledLeft,LOW);
+  }else if(leftValue == HIGH){
+    digitalWrite(ledLeft,HIGH);  
+  }
 }
 
