@@ -13,7 +13,7 @@ const int irRight = 7;
 const int irLeft = 8;
 
 //control led pins for TCRT5000
-const int ledRight = 2;
+const int ledRight = 4;
 const int ledLeft = 12;
 
 //variables for TCRT5000
@@ -21,6 +21,9 @@ int rightValue;
 int leftValue;
 int lastIrRightState = HIGH;
 int lastIrLeftState = HIGH;
+
+bool scrollOn = false;
+unsigned long startTime;
 
 MPU6050 mpu;
 
@@ -47,10 +50,8 @@ void setup() {
 
   //irRight works with internal pullup
   digitalWrite(irRight,HIGH); 
-
   
-  //Wire.begin(); -> right LED stays off otherwise...!???
-  
+  Wire.begin();   
   Mouse.begin();
 }
 
@@ -62,15 +63,17 @@ void loop() {
   //move cursor
   //Mouse.move(-usableGyroX, usableGyroY);
   //delay(16);
+
+  unsigned long currentMillis = millis();
+  
   rightValue = digitalRead(irRight);
   leftValue = digitalRead(irLeft);
 
   ////BLOCK FOR LEFT FOOT
-  //feet are down, nothing happens
-  if(leftValue == LOW && lastIrLeftState == LOW){
-  }
+  ////IMPLEMENTS: LEFT CLICK, LEFT DOUBLE CLICK
+  
   //feet were down, are up now 
-  else if(leftValue == HIGH && lastIrLeftState == LOW){
+  if(leftValue == HIGH && lastIrLeftState == LOW){
     Serial.println("IF 2 ");
     Mouse.press();   
   }
@@ -86,25 +89,56 @@ void loop() {
   lastIrLeftState = leftValue; 
 
   ////BLOCK FOR RIGHT FOOT
-  //feet are down, nothing happens
-  if(rightValue == LOW && lastIrRightState == LOW){
-  }
+  ////IMPLEMENTS: OPEN CONTEXT MENU, SCROLL
+  
   //feet were down, are up now 
-  else if(rightValue == HIGH && lastIrRightState== LOW){
+  if(rightValue == HIGH && lastIrRightState== LOW){
     Serial.println("IF 2 ");
-    Mouse.press(MOUSE_RIGHT);   
+    startTime = millis();
+    //Mouse.press(MOUSE_RIGHT);   
   }
   //feet were up, are down now 
   else if(rightValue == LOW && lastIrRightState == HIGH){
-    Serial.println("IF 3");
-    Mouse.release(MOUSE_RIGHT);
-  } 
+    //Serial.println("IF 3");
+    unsigned long endTime = millis();
+    unsigned long duration = endTime - startTime;
+    if(duration < 350){
+      //open context menu
+      Mouse.click(MOUSE_RIGHT);
+    }
+    else{
+      Serial.println("Implement all se scrolls!!!");
+      if(!scrollOn){
+        scrollOn = true;
+      }     
+      else{
+        scrollOn = false;
+      }
+    }
+    //Serial.print("endTime: ");
+    //Serial.print(endTime);
+    //Serial.print(" - startTime: ");
+    //Serial.print(startTime);
+    //Serial.print(" = duration: ");
+    Serial.println(duration);
+  }
+
   //feet were up, are still up 
   else if(rightValue == HIGH && lastIrRightState == HIGH){
-    Serial.println("IF 4");   
+    
+    //Serial.println("IF 4");   
   }
+  
   lastIrRightState = rightValue; 
 
+  //falscher Ort
+  while(rightValue == LOW && lastIrRightState == LOW && scrollOn){
+    //change 3 for gyro
+    Mouse.move(0, 0, 3);    
+    delay(500);
+    rightValue = digitalRead(irRight); 
+  }
+  
   //BLOCK FOR CONTROL LEDS
   if(rightValue == LOW){
     digitalWrite(ledRight,LOW);
