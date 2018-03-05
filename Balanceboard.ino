@@ -22,7 +22,7 @@ int leftValue;
 int lastIrRightState = HIGH;
 int lastIrLeftState = HIGH;
 
-bool scrollOn = false;
+bool selectOn = false;
 unsigned long startTime;
 
 MPU6050 mpu;
@@ -39,8 +39,8 @@ void setup() {
   Serial.begin(9600);
 
   //setting up mpu
-  //mpu.initialize();
-  //setOffsets(mpu);
+  mpu.initialize();
+  setOffsets(mpu);
   
   pinMode(ledRight,OUTPUT);
   pinMode(ledLeft,OUTPUT);
@@ -58,10 +58,10 @@ void setup() {
 void loop() {
   
   //get gyroscope data
-  //getUsableGyroData();
+  getUsableGyroData();
   
   //move cursor
-  //Mouse.move(-usableGyroX, usableGyroY);
+  Mouse.move(-usableGyroX/1.5, usableGyroY/1.5);
   //delay(16);
 
   unsigned long currentMillis = millis();
@@ -75,12 +75,22 @@ void loop() {
   //feet were down, are up now 
   if(leftValue == HIGH && lastIrLeftState == LOW){
     Serial.println("IF 2 ");
-    Mouse.press();   
+    startTime = millis();
+    //Mouse.press();   
   }
   //feet were up, are down now 
   else if(leftValue == LOW && lastIrLeftState == HIGH){
     Serial.println("IF 3");
-    Mouse.release();
+    unsigned long endTime = millis();
+    unsigned long duration = endTime - startTime;
+    if(duration < 350){
+      Mouse.click();
+    }
+    else{
+      Mouse.click();
+      Mouse.click();
+    }
+    //Mouse.release();
   } 
   //feet were up, are still up 
   else if(leftValue == HIGH && lastIrLeftState == HIGH){
@@ -107,12 +117,12 @@ void loop() {
       Mouse.click(MOUSE_RIGHT);
     }
     else{
-      Serial.println("Implement all se scrolls!!!");
-      if(!scrollOn){
-        scrollOn = true;
+      //activate select mode
+      if(!selectOn){
+        selectOn = true;
       }     
       else{
-        scrollOn = false;
+        selectOn = false;
       }
     }
     //Serial.print("endTime: ");
@@ -131,12 +141,18 @@ void loop() {
   
   lastIrRightState = rightValue; 
 
-  //falscher Ort
-  while(rightValue == LOW && lastIrRightState == LOW && scrollOn){
-    //change 3 for gyro
-    Mouse.move(0, 0, 3);    
-    delay(500);
-    rightValue = digitalRead(irRight); 
+  //select / drag and drop
+  while(rightValue == LOW && lastIrRightState == LOW){
+    if(selectOn){  
+    Mouse.press();
+    Mouse.move(-usableGyroX/1.5, usableGyroY/1.5);
+    rightValue = digitalRead(irRight);
+    getUsableGyroData();
+    }
+    else{
+      Mouse.release();
+      break;
+    }
   }
   
   //BLOCK FOR CONTROL LEDS
