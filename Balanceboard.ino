@@ -1,5 +1,4 @@
 //author: frontsidekante
-//
 
 //libraries for MPU6050 (gyro/accel)
 //https://www.i2cdevlib.com/docs/html/class_m_p_u6050.html
@@ -7,6 +6,9 @@
 #include "MPU6050.h"
 #include "Mouse.h"
 #include "Wire.h"
+
+float height_sensitivity = 6;
+float width_sensitivity = 3;
 
 //signal pins for TCRT5000
 const int irRight = 7; 
@@ -23,6 +25,7 @@ int lastIrRightState = HIGH;
 int lastIrLeftState = HIGH;
 
 bool selectOn = false;
+unsigned long initiatePowerOff = millis();
 unsigned long startTime;
 
 MPU6050 mpu;
@@ -32,6 +35,8 @@ int16_t RawAccX, RawAccY, RawAccZ, RawGyroX, RawGyroY, RawGyroZ;
 float usableGyroX, usableGyroY, usableGyroZ;
 float usableAccX, usableAccY, usableAccZ;
 int16_t offset;
+
+
 
 void setup() {
 
@@ -61,8 +66,6 @@ void loop() {
   getUsableGyroData();
   
   //move cursor
-  Mouse.move(-usableGyroX/1.5, usableGyroY/1.5);
-  //delay(16);
 
   unsigned long currentMillis = millis();
   
@@ -71,10 +74,15 @@ void loop() {
 
   ////BLOCK FOR LEFT FOOT
   ////IMPLEMENTS: LEFT CLICK, LEFT DOUBLE CLICK
+  if(rightValue == LOW && leftValue == LOW){
+    Mouse.move(-usableGyroX/width_sensitivity, usableGyroY/height_sensitivity);
+    //delay(16);
+    Serial.println(usableGyroX);
+  }
   
   //feet were down, are up now 
   if(leftValue == HIGH && lastIrLeftState == LOW){
-    Serial.println("IF 2 ");
+    //Serial.println("IF 2 ");
     startTime = millis();
     //Mouse.press();   
   }
@@ -94,7 +102,7 @@ void loop() {
   } 
   //feet were up, are still up 
   else if(leftValue == HIGH && lastIrLeftState == HIGH){
-    Serial.println("IF 4");   
+    //Serial.println("IF 4");   
   }
   lastIrLeftState = leftValue; 
 
@@ -103,7 +111,7 @@ void loop() {
   
   //feet were down, are up now 
   if(rightValue == HIGH && lastIrRightState== LOW){
-    Serial.println("IF 2 ");
+    //Serial.println("IF 2 ");
     startTime = millis();
     //Mouse.press(MOUSE_RIGHT);   
   }
@@ -138,9 +146,8 @@ void loop() {
     
     //Serial.println("IF 4");   
   }
-  
-  lastIrRightState = rightValue; 
 
+  
   //select / drag and drop
   while(rightValue == LOW && lastIrRightState == LOW){
     if(selectOn){  
@@ -154,6 +161,22 @@ void loop() {
       break;
     }
   }
+
+  //endSession
+  //while(rightValue == HIGH && leftValue == HIGH){
+  //  rightValue = digitalRead(irRight);
+  //  unsigned long count = millis();
+    //Serial.println(initiatePowerOff);
+    //Serial.println(count);
+  //  if(initiatePowerOff - count > 5000){
+      //Serial.println("Footmouse Power Off");
+      //Mouse.end();
+      //break;  
+  //  }
+  //}
+  
+  lastIrRightState = rightValue; 
+
   
   //BLOCK FOR CONTROL LEDS
   if(rightValue == LOW){
