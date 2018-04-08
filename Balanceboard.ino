@@ -1,32 +1,34 @@
-//author: frontsidekante
-
-//libraries for MPU6050 (gyro/accel)
-//https://www.i2cdevlib.com/docs/html/class_m_p_u6050.html
+//include libraries
 #include "I2Cdev.h"
 #include "MPU6050.h"
 #include "Mouse.h"
 #include "Wire.h"
 
+//set cursor sensitivity
 const float heightSensitivity = 8;
 const float widthSensitivity = 4;
+
+//set duration of long click
 const unsigned long longClick = 350;
 
-//signal pins for TCRT5000
+//TCRT5000 signal pins 
 const int irRight = 7;
 const int irLeft = 8;
 
-//control led pins for TCRT5000
+//TCRT5000 control led pins
 const int ledRight = 4;
 const int ledLeft = 12;
 
-//variables for TCRT5000
-int rightValue;
-int leftValue;
-int lastIrRightState = HIGH;
-int lastIrLeftState = HIGH;
+//TCRT5000 state variables
+int rightState;
+int leftState;
+int lastRightState = HIGH;
+int lastLeftState = HIGH;
 
+//flag for drag and drop / select
 bool selectOn = false;
-bool mouseOn = false;
+
+//
 unsigned long startTime;
 
 MPU6050 mpu;

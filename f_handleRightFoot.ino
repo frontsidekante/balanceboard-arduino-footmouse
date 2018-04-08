@@ -1,19 +1,17 @@
 void handleRightFoot(){ 
     //select / drag and drop
-  if(rightValue == LOW && lastIrRightState == LOW && selectOn){
+  if(rightState == LOW && lastRightState == LOW && selectOn){
     Mouse.press();
     Mouse.move(-gyroX/widthSensitivity, gyroY/heightSensitivity);    
-    //rightValue = digitalRead(irRight);
-    //getGyroData();
   }else{
       Mouse.release();
       //break;
         //feet were down, are up now 
-      if(rightValue == HIGH && lastIrRightState== LOW){
+      if(rightState == HIGH && lastRightState== LOW){
         startTime = millis();  
       }
       //feet were up, are down now 
-      else if(rightValue == LOW && lastIrRightState == HIGH){
+      else if(rightState == LOW && lastRightState == HIGH){
         //Serial.println("IF 3");
         unsigned long endTime = millis();
         unsigned long duration = endTime - startTime;
@@ -32,8 +30,8 @@ void handleRightFoot(){
         }
       }
     }
-  
-  lastIrRightState = rightValue; 
+  //update lastRightState
+  lastRightState = rightState; 
 }
   
   

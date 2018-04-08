@@ -1,10 +1,10 @@
 void handleLeftFoot(){  
   //feet were down, are up now 
-  if(leftValue == HIGH && lastIrLeftState == LOW){
+  if(leftState == HIGH && lastLeftState == LOW){
     startTime = millis();  
   }
   //feet were up, are down now 
-  else if(leftValue == LOW && lastIrLeftState == HIGH){
+  else if(leftState == LOW && lastLeftState == HIGH){
     Serial.println("IF 3");
     unsigned long endTime = millis();
     unsigned long duration = endTime - startTime;
@@ -16,5 +16,6 @@ void handleLeftFoot(){
       Mouse.click();
     }
   } 
-  lastIrLeftState = leftValue; 
+  //update lastLeftState
+  lastLeftState = leftState; 
 }

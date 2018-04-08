@@ -1,5 +1,5 @@
 void handleBothFeet(){  
-  if(rightValue == LOW && leftValue == LOW){
+  if(rightState == LOW && leftState == LOW){
     Mouse.move(-gyroX/widthSensitivity, gyroY/heightSensitivity);
   }
 

@@ -1,14 +1,14 @@
 //handles control LED output
 void controlLED(){
-  if(rightValue == LOW && !selectOn){
+  if(rightState == LOW && !selectOn){
     digitalWrite(ledRight,LOW);
-  }else if(rightValue == HIGH || selectOn){
+  }else if(rightState == HIGH || selectOn){
     digitalWrite(ledRight,HIGH);  
   }
 
-  if(leftValue == LOW){
+  if(leftState == LOW){
     digitalWrite(ledLeft,LOW);
-  }else if(leftValue == HIGH){
+  }else if(leftState== HIGH){
     digitalWrite(ledLeft,HIGH);  
   }
 

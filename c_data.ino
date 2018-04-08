@@ -7,6 +7,6 @@ void getGyroData(){
 }
 
 void getIrData(){
-  rightValue = digitalRead(irRight);
-  leftValue = digitalRead(irLeft);
+  rightState = digitalRead(irRight);
+  leftState = digitalRead(irLeft);
 }
