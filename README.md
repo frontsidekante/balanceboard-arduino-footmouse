@@ -10,14 +10,18 @@
 * 6 resistors (2x 220Ω, 2x 100Ω, 2x 47Ω)
 * 14 jumper wires
 * Breadboard or additional proto board for power distribution
+* Pin Strip (8 Pins needed)
 
 ## 2. Tools
 * Soldering Iron
-* Hot melt gun
+* Glue gun
 
 ## 3. Build yourself some nice TCRT5000 Breakout Boards
-The ones you can buy don't really work well for this and it's way more fun anyway.
+The ones you can buy don't really work well for this and building it yourself is way more fun anyway. You're going to need 2 of these.
 
+![alt text](https://github.com/frontsidekante/balanceboard-arduino-footmouse/blob/master/pictures/BreakoutV2.png "TCRT5000 Diagram")
+
+The grey lines are solder connections below the proto board. The blue, red and black lines are cables. Place the header pins at the blue, red, black and yellow circles. You need to bend the pins of the TCRT5000 a bit so it'll sit on the board 90 degrees rotated.
 
 
 ## 4. Set up the hardware
@@ -64,7 +68,7 @@ This was developed and testet for Ubuntu 16.04.
 
 1. [Download and install the Arduino Software](https://www.arduino.cc/en/Main/Software)
 
-2. [Download the balanceboard-arduino-footmouse.zip](https://github.com/frontsidekante/balanceboard-arduino-footmouse)
+2. [Clone balanceboard-arduino-footmouse.zip](https://github.com/frontsidekante/balanceboard-arduino-footmouse)
 
 3. Extract the .zip to your sketchbook folder (usually named "Arduino")
 
