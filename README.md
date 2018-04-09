@@ -21,7 +21,7 @@
 
 ### Connections
 
-####MPU6050 - Arduino
+**MPU6050 - Arduino**
 
 VCC - 5V
 
@@ -31,7 +31,7 @@ SDA - 2
 
 SCL - 3
 
-**TCRT5000 #1 - Arduino
+**TCRT5000 #1 - Arduino**
 
 5V - 5V
 
@@ -41,7 +41,7 @@ Sensor Pin -  7
 
 LED Pin - 4
 
-**TCRT5000 #2 - Arduino
+**TCRT5000 #2 - Arduino**
 
 5V - 5V
 
