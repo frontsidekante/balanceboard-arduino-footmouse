@@ -1,4 +1,7 @@
 //handles control LED output
+//LED lights up when toes are up
+//right LED also lights up when in select mode 
+
 void controlLED(){
   if(rightState == LOW && !selectOn){
     digitalWrite(ledRight,LOW);

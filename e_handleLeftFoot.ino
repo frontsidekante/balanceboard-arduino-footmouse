@@ -1,3 +1,4 @@
+//implements click and double click
 
 void handleLeftFoot(){  
   //feet were down, are up now 
@@ -6,13 +7,14 @@ void handleLeftFoot(){
   }
   //feet were up, are down now 
   else if(leftState == LOW && lastLeftState == HIGH){
-    Serial.println("IF 3");
     unsigned long endTime = millis();
     unsigned long duration = endTime - startTime;
     if(duration < longClick){
+      //click
       Mouse.click();
     }
     else{
+      //doubleclick
       Mouse.click();
       Mouse.click();
     }

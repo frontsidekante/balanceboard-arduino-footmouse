@@ -1,5 +1,7 @@
+//implements open context menu and select / drag and drop
+
 void handleRightFoot(){ 
-    //select / drag and drop
+  //select / drag and drop
   if(rightState == LOW && lastRightState == LOW && selectOn){
     Mouse.press();
     Mouse.move(-gyroX/widthSensitivity, gyroY/heightSensitivity);    
@@ -11,7 +13,6 @@ void handleRightFoot(){
       }
       //feet were up, are down now 
       else if(rightState == LOW && lastRightState == HIGH){
-        //Serial.println("IF 3");
         unsigned long endTime = millis();
         unsigned long duration = endTime - startTime;
         if(duration < longClick){
@@ -19,7 +20,7 @@ void handleRightFoot(){
           Mouse.click(MOUSE_RIGHT);
         }
         else{
-          //activate select mode
+          //activate/deactivate select mode
           if(!selectOn){
             selectOn = true;
           }     

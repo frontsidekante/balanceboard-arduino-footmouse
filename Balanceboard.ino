@@ -30,19 +30,22 @@ int lastLeftState = HIGH;
 //flag for drag and drop / select
 bool selectOn = false;
 
-
+//used to calculate duration of lifting toes
 unsigned long startTime;
 
+//MPU constructor
 MPU6050 mpu;
 
+//holds gyroscope values for 
 float gyroX, gyroY;
 
+//initialize libraries, get sensors ready
 void setup() {
 
   //sets datarate in bits per second
   Serial.begin(9600);
 
-  //set up MPU
+  //sets up MPU
   mpu.initialize();
   setOffsets();
 
@@ -54,14 +57,11 @@ void setup() {
   Mouse.begin();
 }
 
+//get sensor data, controll cursor movements and mouse functionality
 void loop() {
 
-  //Gets data from gyroscope
-  //returns gyroX, gyroY
   getGyroData();
-  
-  //Gets data from infraredsensors
-  //returns rightValue, leftValue
+
   getIrData();
 
   //Implements cursor movement
@@ -69,6 +69,7 @@ void loop() {
 
   //Implements leftclick and double click
   handleLeftFoot();
+  
   //Implements open context menu and Select
   handleRightFoot();
 
