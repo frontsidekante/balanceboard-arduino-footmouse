@@ -1,3 +1,5 @@
+//main file
+
 //include libraries
 #include "I2Cdev.h"
 #include "MPU6050.h"
@@ -28,12 +30,11 @@ int lastLeftState = HIGH;
 //flag for drag and drop / select
 bool selectOn = false;
 
-//
+
 unsigned long startTime;
 
 MPU6050 mpu;
 
-//variables for mpu
 float gyroX, gyroY;
 
 void setup() {
@@ -41,7 +42,7 @@ void setup() {
   //sets datarate in bits per second
   Serial.begin(9600);
 
-  //Set up MPU
+  //set up MPU
   mpu.initialize();
   setOffsets();
 
@@ -55,12 +56,11 @@ void setup() {
 
 void loop() {
 
-  //Get data from gyroscope
+  //Gets data from gyroscope
   //returns gyroX, gyroY
   getGyroData();
-  //Serial.println(leftValue);
   
-  //Get data from infraredsensors
+  //Gets data from infraredsensors
   //returns rightValue, leftValue
   getIrData();
 
@@ -72,6 +72,7 @@ void loop() {
   //Implements open context menu and Select
   handleRightFoot();
 
+  //handles controlLED
   controlLED();
 
   

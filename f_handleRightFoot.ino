@@ -5,8 +5,7 @@ void handleRightFoot(){
     Mouse.move(-gyroX/widthSensitivity, gyroY/heightSensitivity);    
   }else{
       Mouse.release();
-      //break;
-        //feet were down, are up now 
+      //feet were down, are up now 
       if(rightState == HIGH && lastRightState== LOW){
         startTime = millis();  
       }

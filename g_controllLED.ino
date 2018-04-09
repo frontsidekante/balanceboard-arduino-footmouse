@@ -11,7 +11,4 @@ void controlLED(){
   }else if(leftState== HIGH){
     digitalWrite(ledLeft,HIGH);  
   }
-
-
-
 }

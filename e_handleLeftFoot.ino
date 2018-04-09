@@ -1,3 +1,4 @@
+
 void handleLeftFoot(){  
   //feet were down, are up now 
   if(leftState == HIGH && lastLeftState == LOW){

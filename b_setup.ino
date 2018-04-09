@@ -1,4 +1,3 @@
-//author: frontsidekante
 //functions used in setup()
 
 void setOffsets(){

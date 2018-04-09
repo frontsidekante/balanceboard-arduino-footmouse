@@ -1,5 +1,5 @@
-//SETUP TEST FUNCTIONS FOR LOGGING AND DEBUGGING
-//use while(!Serial){...} to print to serial monitor 
+//test functions for logging and debugging
+//in setup() -> use while(!Serial){...} to print to serial monitor 
 //this is necessary because Leonardo has only 1 chip for USB communication and processing of sketches
 
 void printSleepModeStatus(){
