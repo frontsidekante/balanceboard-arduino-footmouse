@@ -15,7 +15,15 @@
 * Soldering Iron
 * Hot melt gun
 
-## 3. Set up the hardware
+## 3. Build yourself some nice TCRT5000 Breakout Boards
+The ones you can buy don't really work well for this and it's way more fun anyway.
+
+
+
+## 4. Set up the hardware
+Place the Leonardo and sensors on the balance board like this:
+![alt text](https://github.com/frontsidekante/balanceboard-arduino-footmouse/blob/master/pictures/Hardware_Setup.png "Connection Diagram")
+
 
 
 
@@ -51,7 +59,7 @@ Sensor Pin - 8
 
 LED Pin -12
 
-## 4. Set up the software
+## 5. Set up the software
 This was developed and testet for Ubuntu 16.04. 
 
 1. [Download and install the Arduino Software](https://www.arduino.cc/en/Main/Software)
@@ -64,7 +72,7 @@ This was developed and testet for Ubuntu 16.04.
 
 5. Upload Balanceboard.ino to your Leonardo
 
-## 5. Enjoy hands free cursor action
+## 6. Enjoy hands free cursor action
 Tilt the board to move the cursor
 
 Lift your left toes and set them right back down to click
