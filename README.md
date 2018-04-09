@@ -21,7 +21,7 @@ The ones you can buy don't really work well for this and building it yourself is
 
 ![alt text](https://github.com/frontsidekante/balanceboard-arduino-footmouse/blob/master/pictures/BreakoutV2.png "TCRT5000 Diagram")
 
-The grey lines are solder connections below the proto board. The blue, red and black lines are cables. You need to bend the pins of the TCRT5000 a bit so it'll sit on the board 90 degrees rotated.
+The grey lines are solder connections below the proto board. The blue, red and black lines are cables. Place the header pins at the blue, red, black and yellow circles. You need to bend the pins of the TCRT5000 a bit so it'll sit on the board 90 degrees rotated.
 
 
 ## 4. Set up the hardware
