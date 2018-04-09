@@ -14,7 +14,7 @@
 
 ## 2. Tools
 * Soldering Iron
-* Hot melt gun
+* Glue gun
 
 ## 3. Build yourself some nice TCRT5000 Breakout Boards
 The ones you can buy don't really work well for this and building it yourself is way more fun anyway. You're going to need 2 of these.
