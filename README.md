@@ -68,7 +68,7 @@ This was developed and testet for Ubuntu 16.04.
 
 1. [Download and install the Arduino Software](https://www.arduino.cc/en/Main/Software)
 
-2. [Download the balanceboard-arduino-footmouse.zip](https://github.com/frontsidekante/balanceboard-arduino-footmouse)
+2. [Clone balanceboard-arduino-footmouse.zip](https://github.com/frontsidekante/balanceboard-arduino-footmouse)
 
 3. Extract the .zip to your sketchbook folder (usually named "Arduino")
 
