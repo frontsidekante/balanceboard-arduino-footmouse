@@ -25,7 +25,8 @@ The grey lines are solder connections below the proto board. The blue, red and b
 
 
 ## 4. Set up the hardware
-Place the Leonardo and sensors on the balance board like this:
+Place the Leonardo and sensors on the balance board like this (replace BH1750 with TCRT5000 and check the connections listed below):
+
 ![alt text](https://github.com/frontsidekante/balanceboard-arduino-footmouse/blob/master/pictures/Hardware_Setup.png "Connection Diagram")
 
 
