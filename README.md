@@ -1,5 +1,15 @@
 # Build your own footmouse
 
+"But what's a footmouse?" you might think. Well... let's take a look!
+
+![balance board in action](https://github.com/frontsidekante/balanceboard-arduino-footmouse/blob/master/pictures/balanceboard_in_action2.png "balanceboard_in_action2")
+
+It lets you control the cursor and execute common mouse actions with your feet. Spacy, huh? <br>
+"But where can I get one?" <br>
+You can build one yourself. DIY, fork yeah!!! <br>
+Just follow the instructions and you can buy shoes online or do your taxes or skype with your cousin while you're hands are free to clap or wave or whatever is the most appropriate reaction at the time. <br>
+So let's get cracking!
+
 ## 1. Parts
 * 1 Balanceboard
 * 1 Arduino Leonardo
@@ -19,7 +29,7 @@
 ## 3. Build yourself some nice TCRT5000 Breakout Boards
 The ones you can buy don't really work well for this and building it yourself is way more fun anyway. You're going to need 2 of these.
 
-![alt text](https://github.com/frontsidekante/balanceboard-arduino-footmouse/blob/master/pictures/BreakoutV2.png "TCRT5000 Diagram")
+![TCRT5000 Diagram](https://github.com/frontsidekante/balanceboard-arduino-footmouse/blob/master/pictures/BreakoutV2.png "TCRT5000 Diagram")
 
 The grey lines are solder connections below the proto board. The blue, red and black lines are cables. Place the header pins at the blue, red, black and yellow circles. You need to bend the pins of the TCRT5000 a bit so it'll sit on the board 90 degrees rotated.
 
@@ -28,9 +38,6 @@ The grey lines are solder connections below the proto board. The blue, red and b
 Place the Leonardo and sensors on the balance board like this (replace BH1750 with TCRT5000 and check the connections listed below):
 
 ![alt text](https://github.com/frontsidekante/balanceboard-arduino-footmouse/blob/master/pictures/Hardware_Setup.png "Connection Diagram")
-
-
-
 
 ### Connections
 
